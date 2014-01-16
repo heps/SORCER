@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>
+<!-- 
+ /*
+ * Copyright 2010 the original author or authors.
+ * Copyright 2010 SorcerSoft.org.
+ *  
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<project name="Equation Solver" default="all" basedir=".">
+	<property name="module.name" value="solver" />
+	<property name="module.run.dir" value="solver" />
+
+	<!-- set global properties -->
+	<import file="../../../common-build.xml" />
+	<property name="src" value="./src" />
+	<property name="resources" value="./resources" />
+
+	<!-- The sources to compile -->
+	<patternset id="ant.java">
+		<include name="sorcer/solver/**/*.java" />
+		<exclude name="**/SAVE/*.java" />
+		<exclude name="**/BAK/*.java" />
+	</patternset>
+
+	<fileset dir="${resources}" id="icons">
+		<include name="sorcer.jpg" />
+	</fileset>
+
+	<patternset id="ant.classes">
+		<include name="sorcer/provider/**/*.class" />
+	</patternset>
+
+	<patternset id="ant.jars">
+		<include name="partner-solver-cc.jar" />
+		<include name="jeri-solver.jar" />
+		<include name="jeri-solver-dl.jar" />
+		<include name="solver-ui.jar" />
+		<include name="solver-mvc-ui.jar" />
+		<include name="solver-requestor.jar" />
+		<include name="solver-requestor-dl.jar" />
+	</patternset>
+
+	<path id="project.classpath">
+		<pathelement location="${classes}" />
+		<pathelement location="${sorcer.lib}/sorcer.jar" />
+		<pathelement location="${support.lib}/junit.jar" />
+		<path refid="jini.path" />
+		<path refid="rio.path" />
+	</path>
+
+	<path id="javadocs.classpath">
+		<pathelement location="${common.lib}/rio/serviceui-1.1a.jar" />
+		<pathelement location="${common.lib}rio//ant-ext.jar" />
+		<pathelement location="${ant.home}/lib/ant.jar" />
+	</path>
+
+	<!-- No RMI stubs are required for JERI type of providers -->
+	<target name="compile" depends="compileSources" />
+	<target name="jars" depends="solver, copy-run-prv-files" />
+	<target name="solver" depends="jeri-solver.jar, jeri-solver-dl.jar, solver-ui.jar, solver-mvc-ui.jar, solver-requestor.jar, solver-requestor-dl.jar" />
+	<target name="all" depends="prepare, jars" />
+
+	<target name="solver-requestor.jar">
+		<classdepandjar jarfile="${sorcer.lib}/solver-requestor.jar" files="true">
+			<classpath refid="project.classpath" />
+			<in name="sorcer.solver" />
+			<topclass name="sorcer.solver.requestor.SolverTester" />
+			<fileset dir="${iGrid.home}/configs" includes="sorcer/util/sorcer.env" />
+		</classdepandjar>
+	</target>
+
+	<target name="solver-requestor-dl.jar">
+		<classdepandjar jarfile="${sorcer.lib}/solver-requestor-dl.jar" files="true">
+			<classpath refid="project.classpath" />
+			<in name="sorcer.solver.provider" />
+			<topclass name="sorcer.solver.provider.SolverImpl" />
+			<topclass name="sorcer.solver.provider.ServiceSolver" />
+		</classdepandjar>
+	</target>
+
+	<target name="jeri-solver.jar" depends="compile">
+		<classdepandjar jarfile="${sorcer.lib}/jeri-solver.jar" files="true" debug="false">
+			<classpath refid="project.classpath" />
+			<in name="sorcer.solver.provider" />
+			<topclass name="sorcer.solver.provider.SolverProvider" />
+			<topclass name="sorcer.solver.provider.ServiceSolver" />
+			<fileset dir="${iGrid.home}/configs">
+				<filename name="sorcer/util/sorcer.env" />
+				<filename name="sorcer/util/data.formats" />
+			</fileset>
+			<fileset refid="icons" />
+		</classdepandjar>
+	</target>
+
+	<!-- No RMI stubs are required for JERI type of providers -->
+	<target name="jeri-solver-dl.jar" depends="compile">
+		<classdepandjar jarfile="${sorcer-dl.lib}/jeri-solver-dl.jar" files="true" debug="false">
+			<classpath refid="project.classpath" />
+			<in name="sorcer.solver.provider" />
+			<topclass name="sorcer.solver.provider.Solver" />
+			<topclass name="sorcer.solver.provider.ServiceSolver" />
+			<fileset refid="icons" />
+		</classdepandjar>
+	</target>
+
+	<target name="solver-ui.jar">
+		<classdepandjar jarfile="${sorcer-dl.lib}/solver-ui.jar" files="true">
+			<classpath refid="project.classpath" />
+			<in name="sorcer.solver" />
+			<in name="sorcer.ui" />
+			<topclass name="sorcer.solver.provider.ui.SolverUI" />
+			<topclass name="sorcer.ui.serviceui.UIComponentFactory" />
+		</classdepandjar>
+	</target>
+
+	<target name="solver-mvc-ui.jar">
+		<classdepandjar jarfile="${sorcer-dl.lib}/solver-mvc-ui.jar" files="true">
+			<classpath refid="project.classpath" />
+			<in name="sorcer.solver" />
+			<in name="sorcer.ui" />
+			<topclass name="sorcer.solver.provider.ui.mvc.SolverView" />
+			<topclass name="sorcer.ui.serviceui.UIComponentFactory" />
+		</classdepandjar>
+	</target>
+
+	<target name="docs" depends="prepare, compile">
+		<javadoc packagenames="org.jini.rio.tools.ant.*" maxmemory="100M" sourcepath="${src}" destdir="${docs}/api" Author="true" Version="true" Use="true" windowtitle="Arithmetic Examples" doctitle="&lt;h1&gt;Arithmetic Examples;/h1&gt;" bottom="&lt;i&gt;Copyright (c) 2002-2006 Texas tech University, All Rights Reserved.&lt;/i&gt;">
+			<group title="Equation Solver Example" packages="sorcer.provider.solver.*" />
+			<classpath refid="project.classpath" />
+		</javadoc>
+	</target>
+
+	<target name="copy-run-prv-files">
+		<mkdir dir="${iGrid.home}/bin/examples/${module.run.dir}/configs" />
+		<mkdir dir="${iGrid.home}/bin/examples/${module.run.dir}/bin" />
+		<mkdir dir="${iGrid.home}/bin/examples/${module.run.dir}/policy" />
+		<mkdir dir="${iGrid.home}/bin/examples/${module.run.dir}/logs" />
+		<copy todir="${iGrid.home}/bin/examples/${module.run.dir}/configs">
+			<fileset dir="configs">
+				<include name="*" />
+			</fileset>
+		</copy>
+		<copy todir="${iGrid.home}/bin/examples/${module.run.dir}/bin">
+			<fileset dir="bin">
+				<include name="*" />
+			</fileset>
+		</copy>
+		<copy todir="${iGrid.home}/bin/examples/${module.run.dir}/policy">
+			<fileset dir="policy">
+				<include name="*" />
+			</fileset>
+		</copy>
+		<chmod dir="${iGrid.home}/bin/examples/${module.run.dir}/bin" perm="755" includes="*.sh" />
+	</target>
+
+</project>

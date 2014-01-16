@@ -10,4 +10,14 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>com.stateofflow.eclipse.metrics.MetricsNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>JAVA_HOME</name>
+			<value>file:/C:/Program%20Files/Java/jdk1.7.0_51</value>
+		</variable>
+		<variable>
+			<name>RIO</name>
+			<value>file:/C:/Users/Samael/workspace/SORCER/iGrid/rio</value>
+		</variable>
+	</variableList>
 </projectDescription>
