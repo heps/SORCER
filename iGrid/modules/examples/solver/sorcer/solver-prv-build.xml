@@ -66,24 +66,15 @@
 	<!-- No RMI stubs are required for JERI type of providers -->
 	<target name="compile" depends="compileSources" />
 	<target name="jars" depends="solver, copy-run-prv-files" />
-	<target name="solver" depends="jeri-solver.jar, jeri-solver-dl.jar, solver-requestor-dl.jar" />
+	<target name="solver" depends="jeri-solver.jar, jeri-solver-dl.jar"/>
 	<target name="all" depends="prepare, jars" />
 
-	<target name="solver-requestor-dl.jar">
-		<classdepandjar jarfile="${sorcer.lib}/solver-requestor-dl.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.solver.provider" />
-			<topclass name="sorcer.solver.provider.SolverImpl" />
-			<topclass name="sorcer.solver.provider.ServiceSolver" />
-		</classdepandjar>
-	</target>
 
 	<target name="jeri-solver.jar" depends="compile">
 		<classdepandjar jarfile="${sorcer.lib}/jeri-solver.jar" files="true" debug="false">
 			<classpath refid="project.classpath" />
 			<in name="sorcer.solver.provider" />
 			<topclass name="sorcer.solver.provider.SolverProvider" />
-			<topclass name="sorcer.solver.provider.ServiceSolver" />
 			<fileset dir="${iGrid.home}/configs">
 				<filename name="sorcer/util/sorcer.env" />
 				<filename name="sorcer/util/data.formats" />
@@ -98,7 +89,6 @@
 			<classpath refid="project.classpath" />
 			<in name="sorcer.solver.provider" />
 			<topclass name="sorcer.solver.provider.Solver" />
-			<topclass name="sorcer.solver.provider.ServiceSolver" />
 			<fileset refid="icons" />
 		</classdepandjar>
 	</target>

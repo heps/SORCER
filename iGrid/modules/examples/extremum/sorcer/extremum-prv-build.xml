@@ -66,24 +66,14 @@
 	<!-- No RMI stubs are required for JERI type of providers -->
 	<target name="compile" depends="compileSources" />
 	<target name="jars" depends="extremum, copy-run-prv-files" />
-	<target name="extremum" depends="jeri-extremum.jar, jeri-extremum-dl.jar, extremum-requestor-dl.jar" />
+	<target name="extremum" depends="jeri-extremum.jar, jeri-extremum-dl.jar" />
 	<target name="all" depends="prepare, jars" />
-
-	<target name="extremum-requestor-dl.jar">
-		<classdepandjar jarfile="${sorcer.lib}/extremum-requestor-dl.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.extremum.provider" />
-			<topclass name="sorcer.extremum.provider.ExtremumImpl" />
-			<topclass name="sorcer.extremum.provider.ServiceExtremum" />
-		</classdepandjar>
-	</target>
 
 	<target name="jeri-extremum.jar" depends="compile">
 		<classdepandjar jarfile="${sorcer.lib}/jeri-extremum.jar" files="true" debug="false">
 			<classpath refid="project.classpath" />
 			<in name="sorcer.extremum.provider" />
 			<topclass name="sorcer.extremum.provider.ExtremumProvider" />
-			<topclass name="sorcer.extremum.provider.ServiceExtremum" />
 			<fileset dir="${iGrid.home}/configs">
 				<filename name="sorcer/util/sorcer.env" />
 				<filename name="sorcer/util/data.formats" />
@@ -98,7 +88,6 @@
 			<classpath refid="project.classpath" />
 			<in name="sorcer.extremum.provider" />
 			<topclass name="sorcer.extremum.provider.Extremum" />
-			<topclass name="sorcer.extremum.provider.ServiceExtremum" />
 			<fileset refid="icons" />
 		</classdepandjar>
 	</target>
