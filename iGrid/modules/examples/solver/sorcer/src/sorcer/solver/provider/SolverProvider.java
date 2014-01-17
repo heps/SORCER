@@ -11,7 +11,10 @@ import sorcer.service.Context;
 import sorcer.util.Log;
 
 import com.sun.jini.start.LifeCycle;
-
+/**
+ * @author m.weiss s8035
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class SolverProvider extends ServiceTasker implements Solver,
 		ServiceSolver, SorcerConstants {

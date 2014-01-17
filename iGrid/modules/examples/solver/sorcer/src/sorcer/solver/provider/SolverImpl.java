@@ -3,11 +3,7 @@ package sorcer.solver.provider;
 import java.rmi.RemoteException;
 import java.lang.Math;
 /**
- * 
- */
-
-/**
- * @author Samael
+ * @author m.weiss s8035
  *
  */
 public class SolverImpl implements Solver {

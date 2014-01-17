@@ -4,7 +4,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import sorcer.service.Context;
-
+/**
+ * @author m.weiss s8035
+ *
+ */
 @SuppressWarnings("rawtypes")
 public interface ServiceSolver extends Remote {
 

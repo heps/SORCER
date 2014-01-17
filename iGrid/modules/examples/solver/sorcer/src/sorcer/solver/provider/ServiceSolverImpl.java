@@ -17,7 +17,10 @@ import sorcer.service.Context;
 import sorcer.service.Exertion;
 import sorcer.service.ExertionException;
 import sorcer.util.Log;
-
+/**
+ * @author m.weiss s8035
+ *
+ */
 public class ServiceSolverImpl implements Solver, ServiceSolver, SorcerConstants {
 
 	private static Logger logger = Log.getTestLog();
