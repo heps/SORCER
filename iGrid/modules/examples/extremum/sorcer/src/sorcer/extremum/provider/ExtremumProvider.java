@@ -37,28 +37,19 @@ public class ExtremumProvider extends ServiceTasker implements Extremum,
 		//result = stringToarr(getProperty("provider.result"));
 	}
 
-	public Context extremum(Context context) throws RemoteException,
-			ExtremumException {
+	public Context extremum(Context context) throws RemoteException,ExtremumException{
 		logger.info("--------extremum() extremumProvider------------");
-		return process(context, ServiceExtremum.EXTREMUM);
-	}
-
-	private Context process(Context context, String selector)
-			throws RemoteException, ExtremumException {
-		logger.info("--------process() extremumProvider------------");
 		try {
 			Double result[] = null;
-			Double a = null, b = null, c = null;
-			if (selector.equals(ServiceExtremum.EXTREMUM)) {
-				a = Double.parseDouble((String) context.getValue(ServiceExtremum.EXTREMUM + CPS
-						+ ServiceExtremum.A));
-				b = Double.parseDouble((String)context.getValue(ServiceExtremum.EXTREMUM + CPS
-						+ ServiceExtremum.B));
-				
-				result = extremum(a,b);				
-			}
-
-		} catch (Exception ex) {
+			Double a = null, b = null;
+			a = (Double) context.getValue("extremum/a");
+			b = (Double)context.getValue("extremum/b");
+			
+			result = extremum(a,b);				
+			
+		
+		context.putValue("result", result);
+		}catch (Exception ex) {
 			throw new ExtremumException(ex);
 		}
 		return context;
