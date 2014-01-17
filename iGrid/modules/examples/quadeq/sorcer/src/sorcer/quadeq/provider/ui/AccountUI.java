@@ -1,7 +1,8 @@
-package sorcer.account.provider.ui;
+package sorcer.quadeq.provider.ui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -15,18 +16,19 @@ import javax.swing.JTextField;
 import net.jini.core.lookup.ServiceItem;
 import net.jini.lookup.entry.UIDescriptor;
 import net.jini.lookup.ui.MainUI;
-import sorcer.account.provider.Account;
-import sorcer.account.provider.Money;
+import sorcer.quadeq.provider.Account;
+import sorcer.quadeq.provider.Money;
 import sorcer.core.provider.ServiceProvider;
 import sorcer.ui.serviceui.UIComponentFactory;
 import sorcer.ui.serviceui.UIDescriptorFactory;
 import sorcer.util.Sorcer;
 
+
 public class AccountUI extends JPanel {
 
 	private static final long serialVersionUID = -3171243785170712405L;
 
-	private JTextField balanceTextField;
+	private JTextField eqA, eqB, eqC, equationTF, balanceTextField;
 
 	private JTextField withdrawalTextField;
 
@@ -41,7 +43,7 @@ public class AccountUI extends JPanel {
 
 	public AccountUI(Object provider) {
 		super();
-		getAccessibleContext().setAccessibleName("Account Tester ORIGINAL");
+		getAccessibleContext().setAccessibleName("QuadraticEquationSolver");
 		item = (ServiceItem) provider;
 
 		if (item.service instanceof Account) {
@@ -69,27 +71,30 @@ public class AccountUI extends JPanel {
 
 	private JPanel buildAccountPanel() {
 		JPanel panel = new JPanel();
-		JPanel actionPanel = new JPanel(new GridLayout(3, 3));
+		JPanel actionPanel = new JPanel(new GridLayout(10, 1, 2, 2));
+		equationTF = new JTextField();
+		actionPanel.add(new JLabel("Enter equation:"));
 
-		actionPanel.add(new JLabel("Current Balance: ORIGINAL2"));
-		balanceTextField = new JTextField();
-		balanceTextField.setEnabled(false);
-		actionPanel.add(balanceTextField);
-		actionPanel.add(new JLabel(" cents"));
+		JPanel eqPanel = new JPanel(new GridLayout(1, 6, 0, 0));
+		eqA = new JTextField();
+		eqB = new JTextField();
+		eqC = new JTextField();
+		eqPanel.add(eqA);
+		eqPanel.add(new JLabel("x2 + "));
+		eqPanel.add(eqB);
+		eqPanel.add(new JLabel("x + "));
+		eqPanel.add(eqC);
+		eqPanel.add(new JLabel(" = 0"));
 
-		actionPanel.add(new JLabel("$ Withdraw"));
-		withdrawalTextField = new JTextField();
-		actionPanel.add(withdrawalTextField);
-		JButton withdrawalButton = new JButton("Do it");
-		withdrawalButton.addActionListener(new WithdrawAction());
-		actionPanel.add(withdrawalButton);
-		
-		actionPanel.add(new JLabel("$ Deposit"));
-		depositTextField = new JTextField();
-		actionPanel.add(depositTextField);
-		JButton depositButton = new JButton("Do it");
-		depositButton.addActionListener(new DepositAction());
-		actionPanel.add(depositButton);
+		actionPanel.add(eqPanel);
+
+		JButton calcBt = new JButton("Calculate");
+		calcBt.addActionListener(new CalculateAction());
+		actionPanel.add(calcBt);
+
+		JLabel result = new JLabel("x1 = 25 & x2 = 12");
+		result.setFont(new Font("Arial", 0, 20));
+		actionPanel.add(result);
 
 		panel.add(actionPanel);
 		return panel;
@@ -123,6 +128,22 @@ public class AccountUI extends JPanel {
 		}
 	}
 
+	public class CalculateAction implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			try {
+				Money withdrawalAmount = readTextField(withdrawalTextField);
+				account.makeWithdrawal(withdrawalAmount);
+				withdrawalTextField.setText("");
+				resetBalanceField();
+			} catch (Exception exception) {
+				logger.info("Couldn't talk to account. Error was" + exception);
+				logger.throwing(getClass().getName(), "actionPerformed",
+						exception);
+			}
+		}
+	}
+
+	
 	private class DepositAction implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			try {

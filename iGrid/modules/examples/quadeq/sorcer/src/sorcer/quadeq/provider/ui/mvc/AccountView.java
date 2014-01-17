@@ -1,4 +1,4 @@
-package sorcer.account.provider.ui.mvc;
+package sorcer.quadeq.provider.ui.mvc;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,8 +15,8 @@ import javax.swing.JTextField;
 import net.jini.core.lookup.ServiceItem;
 import net.jini.lookup.entry.UIDescriptor;
 import net.jini.lookup.ui.MainUI;
-import sorcer.account.provider.Account;
-import sorcer.account.provider.Money;
+import sorcer.quadeq.provider.Account;
+import sorcer.quadeq.provider.Money;
 import sorcer.core.provider.ServiceProvider;
 import sorcer.ui.serviceui.UIComponentFactory;
 import sorcer.ui.serviceui.UIDescriptorFactory;
@@ -41,7 +41,7 @@ public class AccountView extends JPanel implements Observer {
 
 	public AccountView(Object provider) {
 		super();
-		getAccessibleContext().setAccessibleName("AccountView Tester");
+		getAccessibleContext().setAccessibleName("Quadratic Equation Solver #2");
 		ServiceItem item = (ServiceItem) provider;
 
 		if (item.service instanceof Account) {
@@ -63,7 +63,7 @@ public class AccountView extends JPanel implements Observer {
 		JPanel panel = new JPanel();
 		JPanel actionPanel = new JPanel(new GridLayout(3, 3));
 
-		actionPanel.add(new JLabel("Current Balance ORIGINAL1"));
+		actionPanel.add(new JLabel("Current Balance HEPS"));
 		balanceTextField = new JTextField();
 		balanceTextField.setEnabled(false);
 		actionPanel.add(balanceTextField);
@@ -72,7 +72,7 @@ public class AccountView extends JPanel implements Observer {
 		actionPanel.add(new JLabel(AccountModel.WITHDRAW));
 		withdrawalTextField = new JTextField();
 		actionPanel.add(withdrawalTextField);
-		JButton withdrawalButton = new JButton("Do it");
+		JButton withdrawalButton = new JButton("Do it ");
 		withdrawalButton.setActionCommand(AccountModel.WITHDRAW);
 		withdrawalButton.addActionListener(dispatcher);
 		actionPanel.add(withdrawalButton);
