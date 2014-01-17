@@ -45,8 +45,6 @@
 		<include name="partner-solver-cc.jar" />
 		<include name="jeri-solver.jar" />
 		<include name="jeri-solver-dl.jar" />
-		<include name="solver-ui.jar" />
-		<include name="solver-mvc-ui.jar" />
 		<include name="solver-requestor.jar" />
 		<include name="solver-requestor-dl.jar" />
 	</patternset>
@@ -68,17 +66,8 @@
 	<!-- No RMI stubs are required for JERI type of providers -->
 	<target name="compile" depends="compileSources" />
 	<target name="jars" depends="solver, copy-run-prv-files" />
-	<target name="solver" depends="jeri-solver.jar, jeri-solver-dl.jar, solver-ui.jar, solver-mvc-ui.jar, solver-requestor.jar, solver-requestor-dl.jar" />
+	<target name="solver" depends="jeri-solver.jar, jeri-solver-dl.jar, solver-requestor-dl.jar" />
 	<target name="all" depends="prepare, jars" />
-
-	<target name="solver-requestor.jar">
-		<classdepandjar jarfile="${sorcer.lib}/solver-requestor.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.solver" />
-			<topclass name="sorcer.solver.requestor.SolverTester" />
-			<fileset dir="${iGrid.home}/configs" includes="sorcer/util/sorcer.env" />
-		</classdepandjar>
-	</target>
 
 	<target name="solver-requestor-dl.jar">
 		<classdepandjar jarfile="${sorcer.lib}/solver-requestor-dl.jar" files="true">
@@ -111,26 +100,6 @@
 			<topclass name="sorcer.solver.provider.Solver" />
 			<topclass name="sorcer.solver.provider.ServiceSolver" />
 			<fileset refid="icons" />
-		</classdepandjar>
-	</target>
-
-	<target name="solver-ui.jar">
-		<classdepandjar jarfile="${sorcer-dl.lib}/solver-ui.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.solver" />
-			<in name="sorcer.ui" />
-			<topclass name="sorcer.solver.provider.ui.SolverUI" />
-			<topclass name="sorcer.ui.serviceui.UIComponentFactory" />
-		</classdepandjar>
-	</target>
-
-	<target name="solver-mvc-ui.jar">
-		<classdepandjar jarfile="${sorcer-dl.lib}/solver-mvc-ui.jar" files="true">
-			<classpath refid="project.classpath" />
-			<in name="sorcer.solver" />
-			<in name="sorcer.ui" />
-			<topclass name="sorcer.solver.provider.ui.mvc.SolverView" />
-			<topclass name="sorcer.ui.serviceui.UIComponentFactory" />
 		</classdepandjar>
 	</target>
 
