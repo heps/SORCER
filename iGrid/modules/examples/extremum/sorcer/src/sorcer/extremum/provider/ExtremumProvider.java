@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import sorcer.core.SorcerConstants;
 import sorcer.core.provider.ServiceTasker;
+import sorcer.extremum.provider.Extremum;
+import sorcer.extremum.provider.ExtremumException;
 import sorcer.service.Context;
 import sorcer.util.Log;
 
@@ -16,8 +18,7 @@ import com.sun.jini.start.LifeCycle;
  *
  */
 @SuppressWarnings("rawtypes")
-public class ExtremumProvider extends ServiceTasker implements Extremum,
-		ServiceExtremum, SorcerConstants {
+public class ExtremumProvider extends ServiceTasker implements Extremum, SorcerConstants {
 
 	private static Logger logger = Log.getTestLog();
 

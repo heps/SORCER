@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 import sorcer.core.SorcerConstants;
 import sorcer.core.provider.ServiceTasker;
 import sorcer.service.Context;
+import sorcer.solver.provider.Solver;
+import sorcer.solver.provider.SolverException;
 import sorcer.util.Log;
 
 import com.sun.jini.start.LifeCycle;

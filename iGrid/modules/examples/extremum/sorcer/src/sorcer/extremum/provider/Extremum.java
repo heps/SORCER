@@ -3,6 +3,7 @@ package sorcer.extremum.provider;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import sorcer.extremum.provider.ExtremumException;
 import sorcer.service.Context;
 /**
  * @author m.weiss s8035
