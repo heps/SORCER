@@ -25,12 +25,15 @@ public class ServiceSolverImpl implements Solver, ServiceSolver, SorcerConstants
 	Double result[] = new Double[2];
 
 	public Context solve(Context context) throws RemoteException, SolverException {
+		logger.info("--------process() serviceSolver------------");
 		return process(context, ServiceSolver.SOLVE);
 	}
 	public ServiceSolverImpl(){
 	}
 	private Context process(Context context, String selector)
 			throws RemoteException, SolverException {
+
+		logger.info("--------process() serviceSolver------------");
 		try {
 			Double result[] = null;
 			Double delta = null, a = null, b = null;

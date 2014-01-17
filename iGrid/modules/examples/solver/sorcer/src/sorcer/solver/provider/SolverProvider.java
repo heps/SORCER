@@ -36,11 +36,13 @@ public class SolverProvider extends ServiceTasker implements Solver,
 
 	public Context solve(Context context) throws RemoteException,
 			SolverException {
+		logger.info("--------solve() solverProvider------------");
 		return process(context, ServiceSolver.SOLVE);
 	}
 
 	private Context process(Context context, String selector)
 			throws RemoteException, SolverException {
+		logger.info("--------process() solverProvider------------");
 		try {
 			Double result[] = null;
 			Double delta = null, a = null, b = null;
