@@ -6,3 +6,4 @@ docs
 tmp
 /.metadata
 /databases
+/.classpath
