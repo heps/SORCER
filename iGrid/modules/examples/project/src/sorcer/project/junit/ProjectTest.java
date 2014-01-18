@@ -45,17 +45,21 @@ public class ProjectTest implements SorcerConstants {
 		
 		logger.info("TEST");
 		
+		double a = -4;
+		double b = 8;
+		double c = 0;
+		
 		Task t1 = task(
 				"Delta",
 				sig("delta", Delta.class, "DeltaProvider"),
-				cxt("delta", in("a", (double)-4.0), in("b", (double)8.0), in("c", (double)10)), result("Delta/delta"));
+				cxt("delta", in("a", a), in("b", b), in("c", c), result("Delta/delta") ));
 
 		logger.info("B´d´ wywo∏ywaç task #1 o zadanych parametrach: "+t1.getContext());
 		
 		Task t2 = srv(
 				"Solver",
 				sig("solve", Solver.class, "SolverProvider"),
-				cxt("solve", in("a", (double)1.0), in("b", (double)4.0), in("d", (double)-5)), result("Solver/x1"), result("Solver/x2"));
+				cxt("solve", in("a", a), in("b", b), result("Solver/x1"), result("Solver/x2")));
 		t1.getContext().connect("delta", "d", t2.getContext());
 		
 		logger.info("B´d´ wywo∏ywaç task #2 o zadanych parametrach: "+t2.getContext());
