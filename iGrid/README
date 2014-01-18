@@ -13,7 +13,7 @@ to the source repository, after customizing them they belong to you only.
 1.	sorcer.env
 2.	sorcer.logging
 
-In the sorcer.logging file, set logger levels accordingly to your development
+In the sxorcer.logging file, set logger levels accordingly to your development
 and testing needs.
 
 The data.formats file defines data-context-node types for various applications 
