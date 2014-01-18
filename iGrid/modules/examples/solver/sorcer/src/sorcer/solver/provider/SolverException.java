@@ -1,9 +1,5 @@
 package sorcer.solver.provider;
 /**
- * 
- */
-
-/**
  * @author m.weiss s8035
  *
  */
