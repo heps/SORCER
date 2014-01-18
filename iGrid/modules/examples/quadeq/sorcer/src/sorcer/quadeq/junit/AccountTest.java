@@ -1,26 +1,73 @@
 package sorcer.quadeq.junit;
 
-import static sorcer.eo.operator.args;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static sorcer.eo.operator.classpath;
+import static sorcer.eo.operator.codebase;
+import static sorcer.eo.operator.configuration;
 import static sorcer.eo.operator.context;
+import static sorcer.eo.operator.deploy;
 import static sorcer.eo.operator.exert;
+import static sorcer.eo.operator.exertion;
 import static sorcer.eo.operator.get;
+import static sorcer.eo.operator.idle;
+import static sorcer.eo.operator.implementation;
 import static sorcer.eo.operator.in;
+import static sorcer.eo.operator.input;
 import static sorcer.eo.operator.job;
 import static sorcer.eo.operator.jobContext;
-import static sorcer.eo.operator.parameterTypes;
+import static sorcer.eo.operator.link;
+import static sorcer.eo.operator.maintain;
+import static sorcer.eo.operator.out;
+import static sorcer.eo.operator.output;
+import static sorcer.eo.operator.pipe;
 import static sorcer.eo.operator.result;
 import static sorcer.eo.operator.sig;
+import static sorcer.eo.operator.strategy;
 import static sorcer.eo.operator.task;
 import static sorcer.eo.operator.value;
+
+import java.rmi.RMISecurityManager;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import sorcer.delta.provider.*;
+import sorcer.solver.provider.*;
+
+import sorcer.core.SorcerConstants;
+import sorcer.core.context.PositionalContext;
+import sorcer.core.context.ServiceContext;
+import sorcer.core.deploy.Deployment;
+import sorcer.core.exertion.NetTask;
+import sorcer.core.provider.ServiceTasker;
+import sorcer.core.signature.NetSignature;
+import sorcer.core.signature.ServiceSignature;
+import sorcer.service.Context;
+import sorcer.service.Contexter;
+import sorcer.service.Evaluation;
+import sorcer.service.Exerter;
+import sorcer.service.Exertion;
+import sorcer.service.Invocation;
+import sorcer.service.Job;
+import sorcer.service.ServiceExertion;
+import sorcer.service.Signature;
+import sorcer.service.Strategy.Access;
+import sorcer.service.Strategy.Flow;
+import sorcer.service.Strategy.Monitor;
+import sorcer.service.Strategy.Provision;
+import sorcer.service.Strategy.Wait;
+import sorcer.service.Task;
+import sorcer.util.ProviderAccessor;
+import sorcer.util.Sorcer;
 
 import java.rmi.RMISecurityManager;
 import java.util.logging.Logger;
 
 import org.junit.Test;
 
-import sorcer.quadeq.provider.Account;
-import sorcer.quadeq.provider.Money;
-import sorcer.quadeq.provider.ServiceAccount;
 import sorcer.core.SorcerConstants;
 import sorcer.service.Job;
 import sorcer.service.ServiceExertion;
@@ -28,7 +75,7 @@ import sorcer.service.Task;
 import sorcer.util.Sorcer;
 
 /**
- * @author Mike Sobolewski
+ * @author Heps
  */
 @SuppressWarnings("unchecked")
 public class AccountTest implements SorcerConstants {
@@ -47,11 +94,11 @@ public class AccountTest implements SorcerConstants {
 	}
 	
 	@Test
-	public void accout1BalanceTest() throws Exception {
-		Task t1 = task("t1",
-				sig("getBalance", ServiceAccount.class, "Account1"),
-				context("balance1", result("balance/amount")));
-
+	public void testSolvera() throws Exception {
+		Task t1 = task("2x2+4x-6=0",
+				sig("solve", Solver.class, "Solver"),
+				context("result"));
+//Task t1 = task("Random", sig("random", RandomNum.class, "RandomNumProvider"), context("random"));
 		logger.info("t1 value: " + value(t1));
 	}
 	
